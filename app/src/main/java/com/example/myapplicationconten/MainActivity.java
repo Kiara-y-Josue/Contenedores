@@ -1,8 +1,12 @@
 package com.example.myapplicationconten;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,5 +33,32 @@ public class MainActivity extends AppCompatActivity {
         AutoCompleteTextView textView =
                 findViewById(R.id.txtcontainer);
         textView.setAdapter(adapter);
+
+
+
+        /* String[] datoslista = new String[]{"Kiara Intriago", "Brittany Cobeña", "Angel Litardo", "Cristhian Miko", "Josue Triana", "Erick Moran"};
+        ArrayAdapter<String> adaptador2 =
+                new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1,
+                        datoslista); */
+        Alumno[] alumnos =
+                new Alumno[]{
+                        new Alumno("Josue Triana", "wtrianac@uteq.edu.ec"),
+                        new Alumno("Erick Moran", "emorang@uteq.edu.ec"),
+                        new Alumno("Angel Litardo", "Alitardop@uteq.edu.ec"),
+                        new Alumno("Kiara Intriago", "kintriagop@uteq.edu.ec") };
+        AdaptadorAlumnos adaptadorAlumnos = new AdaptadorAlumnos(this,
+                alumnos);
+
+        ListView lstListaAlumnos = findViewById(R.id.LvListaAlumnos);
+        lstListaAlumnos.setAdapter(adaptadorAlumnos);
+        lstListaAlumnos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position , long l) {
+                Toast.makeText(getApplicationContext(), "Alumno seleccionado " + ((Alumno)adapterView.getItemAtPosition(position)).getNombre(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 }
